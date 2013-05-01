@@ -96,7 +96,7 @@ class PhpcoverageUpdateCommand(sublime_plugin.TextCommand):
         root = ET.parse(coverage)
 
         for php_file in root.findall('./project//file'):
-            if php_file.get('name') == filename:
+            if os.path.realpath(php_file.get('name')) == os.path.realpath(filename):
                 metrics = php_file.find('./metrics')
                 loc = int(metrics.get('loc'))
                 debug_message('Lines of code: %s' % loc)
